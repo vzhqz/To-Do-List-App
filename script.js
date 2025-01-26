@@ -12,6 +12,24 @@ userTask.addEventListener("keydown", event => {
     }
 })
 
+// Toggles the userTask input when / is pressed and Escape to un toggle  
+document.addEventListener("keydown", event => {
+    if(event.key === "/") {
+        event.preventDefault();
+        userTask.focus();
+    }
+    else if(event.key === "Escape") {
+        userTask.blur();
+    }
+    else if(event.key === "Delete") {
+        const lastTask = taskList.lastElementChild;
+        if(lastTask) {
+            taskList.removeChild(lastTask);
+            saveTasks();
+        }
+    }
+})
+
 // A function to add a task to display
 function addTask() {
     const task = userTask.value.trim();
@@ -32,13 +50,34 @@ addTaskBtn.addEventListener("click", addTask);
 // A function to create the task for the add task thing idk
 function createTask(task) {
     const listItem = document.createElement("li");
-    listItem.textContent = task
-    
+
+    const taskText = document.createElement("span");
+    taskText.textContent = task;
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "buttonContainer";
+
     const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
+    deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
     deleteButton.className = "deleteBtn";
 
-    listItem.appendChild(deleteButton);
+    const editButton = document.createElement("button");
+    editButton.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+    editButton.className = "editButton";
+
+    buttonContainer.appendChild(editButton);
+    buttonContainer.appendChild(deleteButton);
+
+    listItem.appendChild(taskText);
+    listItem.appendChild(buttonContainer);
+
+    editButton.addEventListener("click", () => {
+        const newTask = window.prompt("Edit your task:", taskText.textContent);
+        if(newTask !== null && newTask.trim() !== "") {
+            taskText.textContent = newTask.trim();
+            saveTasks();
+        }
+    })
 
     deleteButton.addEventListener("click", () => {
         taskList.removeChild(listItem);
@@ -52,8 +91,8 @@ function createTask(task) {
 function saveTasks() {
     let tasks = [];
 
-    taskList.querySelectorAll("li").forEach(item => {
-        tasks.push(item.textContent.replace("Delete", "").trim());
+    taskList.querySelectorAll("li span").forEach(item => {
+        tasks.push(item.textContent.trim());
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -62,6 +101,5 @@ function saveTasks() {
 // A function to load tasks from local storage
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    // btw this website was developed by d!aa or vzhqz;
-    tasks.forEach(createTask)
+    tasks.forEach(createTask);
 }
