@@ -18,7 +18,7 @@ h1 {
     margin: 20px;
 }
 
-span {
+.idk {
     display: block;
     font-size: 65%;
 }
@@ -79,6 +79,11 @@ span {
     align-items: center;
 }
 
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+}
+
 .deleteBtn {
     background-color: #ff4d4d;
     color: white;
@@ -96,6 +101,27 @@ span {
 .deleteBtn:active {
     background-color: #e60000;
 }
+
+.editButton {
+    background-color: #4d91ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.editButton:hover {
+    background-color: #3badff;
+
+}
+
+.editButton:active {
+    background-color: #4683e4;
+}
+
+
 
 /* Media Queries for Responsiveness */
 @media (max-width: 600px) {
