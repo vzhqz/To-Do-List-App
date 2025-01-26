@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 20px;
+}
+
+span {
+    display: block;
+    font-size: 65%;
+}
+
+.userTaskContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+#userTask {
+    padding: 8px 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    outline: none;
+    width: calc(100% - 170px); /* Adjusted width to accommodate button */
+    margin-right: 10px;
+}
+
+#addTaskBtn {
+    padding: 8px 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    cursor: pointer;
+    outline: none;
+    max-width: 150px;
+}
+
+#addTaskBtn:hover {
+    background-color: #dbdbdb;
+}
+
+#addTaskBtn:active {
+    background-color: #c7c7c7;
+}
+
+#taskList {
+    margin-top: 25px;
+    width: 100%;
+    max-width: 500px;
+}
+
+#taskList li {
+    list-style: none;
+    font-size: 1.4em;
+    background-color: rgb(222, 222, 222);
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteBtn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.deleteBtn:hover {
+    background-color: #ff1a1a;
+}
+
+.deleteBtn:active {
+    background-color: #e60000;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    #userTask {
+        font-size: 16px;
+        width: calc(100% - 160px); /* Adjusted width for smaller screens */
+    }
+
+    #addTaskBtn {
+        font-size: 16px;
+    }
+
+    #taskList li {
+        font-size: 1.2em;
+    }
+}
