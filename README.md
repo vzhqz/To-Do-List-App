@@ -1,1 +1,1 @@
-<h1>https://vzhqz.github.com/To-Do-List-App/</h1>
+<h1>https://vzhqz.github.io/To-Do-List-App/</h1>
