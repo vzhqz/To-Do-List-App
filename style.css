@@ -75,13 +75,23 @@ h1 {
     border-radius: 10px;
     margin: 5px 0;
     display: flex;
+    align-items: center;
+}
+
+.taskContent {
+    display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.taskText {
+    flex-grow: 1;
 }
 
 .buttonContainer {
     display: flex;
-    gap: 10px;
 }
 
 .deleteBtn {
@@ -121,7 +131,28 @@ h1 {
     background-color: #4683e4;
 }
 
+.doneButton {
+    appearance: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.doneButton::before {
+    content: '\f00d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.doneButton:checked::before {
+    content: '\f00c'
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 600px) {

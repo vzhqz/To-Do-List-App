@@ -1,3 +1,7 @@
+/*
+    Seems like you're reviewing my code.
+    If you have difficulties reading and understanding this code, It's ok, because I even don't understand what's going on here...
+*/
 const userTask = document.getElementById("userTask");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
@@ -48,10 +52,20 @@ function addTask() {
 addTaskBtn.addEventListener("click", addTask);
 
 // A function to create the task for the add task thing idk
-function createTask(task) {
+function createTask(task, isDone = false) {
+    const doneButton = document.createElement("input");
+    doneButton.type = "checkbox";
+    doneButton.className = "doneButton";
+    doneButton.checked = isDone;
+
+
     const listItem = document.createElement("li");
 
+    const taskContent = document.createElement("div");
+    taskContent.className = "taskContent";
+
     const taskText = document.createElement("span");
+    taskText.className = "taskText";
     taskText.textContent = task;
 
     const buttonContainer = document.createElement("div");
@@ -68,8 +82,11 @@ function createTask(task) {
     buttonContainer.appendChild(editButton);
     buttonContainer.appendChild(deleteButton);
 
-    listItem.appendChild(taskText);
-    listItem.appendChild(buttonContainer);
+    taskContent.appendChild(taskText);
+    taskContent.appendChild(buttonContainer);
+
+    listItem.appendChild(doneButton);
+    listItem.appendChild(taskContent);
 
     editButton.addEventListener("click", () => {
         const newTask = window.prompt("Edit your task:", taskText.textContent);
@@ -77,22 +94,40 @@ function createTask(task) {
             taskText.textContent = newTask.trim();
             saveTasks();
         }
-    })
+    });
+
 
     deleteButton.addEventListener("click", () => {
         taskList.removeChild(listItem);
         saveTasks();
-    })
-    
+    });
+
     taskList.appendChild(listItem);
+
+    doneButton.addEventListener("change", () => {
+        if(doneButton.checked) {
+            taskText.style.textDecoration = "line-through";
+        }
+        else {
+            taskText.style.textDecoration = "none";
+        }
+        saveTasks();
+    });
+
+    if(isDone) {
+        taskText.style.textDecoration = "line-through";
+    }
+    
 }
 
 // A function to save tasks to local storage
 function saveTasks() {
     let tasks = [];
 
-    taskList.querySelectorAll("li span").forEach(item => {
-        tasks.push(item.textContent.trim());
+    taskList.querySelectorAll("li").forEach(item => {
+        const taskText = item.querySelector(".taskText").textContent.trim();
+        const isDone = item.querySelector(".doneButton").checked;
+        tasks.push({ text: taskText, isDone });
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -101,5 +136,7 @@ function saveTasks() {
 // A function to load tasks from local storage
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(createTask);
+    tasks.forEach(task => {
+        createTask(task.text, task.isDone);
+    });
 }
